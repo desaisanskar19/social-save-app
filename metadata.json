@@ -1,0 +1,6 @@
+{
+  "name": "SocialSave",
+  "description": "Download publicly accessible Instagram and Facebook media by entering its URL. Fast, simple and mobile-friendly.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
