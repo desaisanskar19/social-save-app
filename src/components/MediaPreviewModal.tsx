@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Play, Pause, Volume2, VolumeX, Maximize2, Download, ExternalLink, ShieldCheck } from 'lucide-react';
+import React from 'react';
+import { X, Volume2, Download } from 'lucide-react';
 import { MediaItem, MediaFormat } from '../types';
 
 interface MediaPreviewModalProps {
@@ -26,32 +26,32 @@ export const MediaPreviewModal: React.FC<MediaPreviewModalProps> = ({
   return (
     <div
       id="media-preview-modal-backdrop"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
         id="media-preview-modal-content"
-        className="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl text-white relative animate-in zoom-in-95 duration-200"
+        className="bg-zinc-900 border border-zinc-800 rounded-[28px] max-w-2xl w-full overflow-hidden shadow-2xl text-white relative animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+        <div className="p-4 sm:p-5 border-b border-zinc-800 flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <span
-              className={`text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
+              className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full ${
                 media.platform === 'instagram'
-                  ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white'
-                  : 'bg-blue-600 text-white'
+                  ? 'bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white'
+                  : 'bg-[#1877F2] text-white'
               }`}
             >
               {media.platform.toUpperCase()} {media.contentType.toUpperCase()}
             </span>
-            <span className="text-xs text-slate-400 font-medium">In-App Media Player</span>
+            <span className="text-xs text-zinc-400 font-medium">In-App Media Player</span>
           </div>
           <button
             id="close-preview-modal-btn"
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+            className="p-2 text-zinc-400 hover:text-white rounded-full hover:bg-zinc-800 transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -71,11 +71,11 @@ export const MediaPreviewModal: React.FC<MediaPreviewModalProps> = ({
             />
           ) : isAudio ? (
             <div className="p-8 text-center w-full max-w-md">
-              <div className="w-20 h-20 mx-auto rounded-full bg-pink-500/20 border border-pink-500/30 flex items-center justify-center mb-4">
-                <Volume2 className="w-10 h-10 text-pink-400 animate-pulse" />
+              <div className="w-20 h-20 mx-auto rounded-full bg-zinc-850 border border-zinc-700 flex items-center justify-center mb-4">
+                <Volume2 className="w-10 h-10 text-[#fd1d1d] animate-pulse" />
               </div>
-              <h4 className="font-bold text-lg mb-1">{media.title}</h4>
-              <p className="text-sm text-slate-400 mb-6">{media.author || 'Original Audio'}</p>
+              <h4 className="font-bold text-lg mb-1 text-white">{media.title}</h4>
+              <p className="text-sm text-zinc-400 mb-6">{media.author || 'Original Audio'}</p>
               <audio
                 src={currentFormat?.url}
                 controls
@@ -94,13 +94,13 @@ export const MediaPreviewModal: React.FC<MediaPreviewModalProps> = ({
         </div>
 
         {/* Details & Actions Footer */}
-        <div className="p-4 sm:p-5 bg-slate-900 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="p-4 sm:p-5 bg-zinc-900 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="w-full sm:w-auto text-left">
-            <h4 className="text-sm font-bold text-slate-100 truncate max-w-md">
+            <h4 className="text-sm font-bold text-white truncate max-w-md">
               {media.title}
             </h4>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Selected: <span className="text-pink-400 font-semibold">{currentFormat?.label || currentFormat?.quality}</span>
+            <p className="text-xs text-zinc-400 mt-0.5">
+              Selected: <span className="text-[#fd1d1d] font-semibold">{currentFormat?.label || currentFormat?.quality}</span>
               {currentFormat?.size && ` • ${currentFormat.size}`}
             </p>
           </div>
@@ -113,10 +113,10 @@ export const MediaPreviewModal: React.FC<MediaPreviewModalProps> = ({
                   onDownload(currentFormat);
                 }
               }}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 transition-all flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20"
+              className="w-full sm:w-auto px-6 py-3 rounded-full font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-95 transition-opacity flex items-center justify-center gap-2 shadow-lg cursor-pointer"
             >
               <Download className="w-4 h-4" />
-              <span>Download This Format</span>
+              <span>Download Format</span>
             </button>
           </div>
         </div>

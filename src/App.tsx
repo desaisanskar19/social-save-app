@@ -174,7 +174,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
+    <div className="min-h-screen flex flex-col bg-[#0A0A0A] text-white selection:bg-[#fd1d1d] selection:text-white">
       {/* Top Navbar */}
       <Navbar
         activePage={activePage}

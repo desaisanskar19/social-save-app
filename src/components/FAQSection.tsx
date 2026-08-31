@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle, Search, ShieldCheck, Sparkles } from 'lucide-react';
+import { ChevronDown, HelpCircle, Search } from 'lucide-react';
 
 export const FAQSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -52,34 +52,34 @@ export const FAQSection: React.FC = () => {
 
   return (
     <section id="faq-section" className="max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-16">
-      <div className="text-center max-w-2xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-600 dark:text-pink-400 text-xs font-bold uppercase tracking-wider mb-3">
-          <HelpCircle className="w-3.5 h-3.5" />
-          <span>Frequently Asked Questions</span>
+      <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-bold uppercase tracking-widest mb-4">
+          <HelpCircle className="w-3.5 h-3.5 text-[#fd1d1d]" />
+          <span>Knowledge Base</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
-          Everything You Need to Know
+        <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-3 uppercase">
+          Frequently Asked Questions
         </h2>
-        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+        <p className="text-xs sm:text-sm text-zinc-400">
           Find quick answers about saving social media content, file saving on mobile, and compliance.
         </p>
 
         {/* Search input */}
         <div className="relative max-w-md mx-auto mt-6">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-zinc-500 absolute left-4 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search questions (e.g. iPhone, MP3, private)…"
+            placeholder="Search questions (e.g. iPhone, MP3, private)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-pink-500 shadow-sm"
+            className="w-full pl-11 pr-4 py-3 rounded-full bg-zinc-900 border border-zinc-800 text-xs sm:text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-600 shadow-md"
           />
         </div>
       </div>
 
       <div className="space-y-3">
         {filteredFaqs.length === 0 ? (
-          <div className="text-center py-8 text-slate-500 dark:text-slate-400 text-sm">
+          <div className="text-center py-8 text-zinc-500 text-sm">
             No questions match "{searchQuery}".
           </div>
         ) : (
@@ -88,22 +88,22 @@ export const FAQSection: React.FC = () => {
             return (
               <div
                 key={index}
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs transition-all"
+                className="bg-zinc-900 border border-zinc-800 rounded-[22px] overflow-hidden shadow-md transition-all hover:border-zinc-700"
               >
                 <button
                   id={`faq-toggle-${index}`}
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full p-4 sm:p-5 text-left font-bold text-sm sm:text-base text-slate-900 dark:text-slate-100 flex items-center justify-between gap-4 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
+                  className="w-full p-5 text-left font-bold text-sm sm:text-base text-white flex items-center justify-between gap-4 hover:text-[#fd1d1d] transition-colors cursor-pointer"
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
-                    className={`w-4 h-4 shrink-0 transition-transform duration-200 text-slate-400 ${
-                      isOpen ? 'rotate-180 text-pink-500' : ''
+                    className={`w-4 h-4 shrink-0 transition-transform duration-200 text-zinc-400 ${
+                      isOpen ? 'rotate-180 text-[#fd1d1d]' : ''
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 mt-1 pt-3 animate-in fade-in duration-150">
+                  <div className="px-5 pb-5 pt-0 text-xs sm:text-sm text-zinc-400 leading-relaxed border-t border-zinc-800/80 pt-3 animate-in fade-in duration-150">
                     {faq.a}
                   </div>
                 )}

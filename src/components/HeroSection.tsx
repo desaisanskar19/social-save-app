@@ -106,149 +106,155 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   ];
 
   return (
-    <section id="hero-section" className="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
-      {/* Background glowing gradients */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-pink-500/15 via-purple-500/10 to-blue-500/15 blur-3xl -z-10 rounded-full pointer-events-none" />
+    <section id="hero-section" className="relative pt-10 pb-16 md:pt-16 md:pb-24 overflow-hidden">
+      {/* Artistic Flair background ambient glows */}
+      <div className="absolute top-10 left-10 w-72 h-72 bg-purple-600/20 blur-[130px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-72 h-72 bg-blue-600/20 blur-[130px] rounded-full pointer-events-none -z-10" />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        {/* Header Tag / Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-500/10 dark:bg-pink-950/40 border border-pink-500/20 text-pink-600 dark:text-pink-400 text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-          <Sparkles className="w-3.5 h-3.5 text-pink-500" />
-          <span>High-Speed Social Media Media Downloader</span>
+      {/* Artistic Background Watermark Typography */}
+      <div className="absolute top-0 right-0 p-8 flex flex-col items-end pointer-events-none opacity-5 select-none hidden lg:flex">
+        <div className="text-[120px] font-black leading-none rotate-90 origin-top-right translate-y-20 text-white">
+          REELS
+        </div>
+        <div className="text-[120px] font-black leading-none rotate-90 origin-top-right translate-y-40 text-white">
+          STORIES
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
+        {/* Artistic Flair Tag */}
+        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8 shadow-md">
+          <span className="w-2 h-2 rounded-full bg-gradient-to-r from-[#833ab4] to-[#fd1d1d] animate-ping" />
+          <span>High-Speed Social Content Downloader</span>
         </div>
 
-        {/* Heading */}
+        {/* Artistic Flair Display Headline */}
         <h1
           id="hero-heading"
-          className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-4"
+          className="text-4xl sm:text-6xl md:text-[76px] font-extrabold leading-[0.95] tracking-tighter mb-6 text-white uppercase"
         >
-          Download Social Media <br className="hidden sm:inline" />
-          <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
-            Content Easily
-          </span>
+          Download{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045]">
+            Social Content
+          </span>{' '}
+          Easily
         </h1>
 
         {/* Subtitle */}
         <p
           id="hero-subtitle"
-          className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8 sm:mb-10 font-normal leading-relaxed"
+          className="text-base sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
         >
-          Paste a public Instagram or Facebook URL and download available media in seconds. High quality, zero watermarks, and no login required.
+          Paste a public Instagram or Facebook URL and download high-quality media in seconds. Fast, anonymous, and high-resolution.
         </p>
 
-        {/* URL Input Form */}
+        {/* URL Input Form with Gradient Aura & Zinc Card */}
         <form
           id="download-form"
           onSubmit={handleSubmit}
-          className="relative max-w-3xl mx-auto mb-6"
+          className="w-full max-w-2xl mx-auto relative group mb-6"
         >
-          <div
-            className={`relative rounded-2xl p-1.5 sm:p-2 bg-white dark:bg-slate-900 border-2 transition-all shadow-xl ${
-              detectedPlatform === 'instagram'
-                ? 'border-pink-500/70 shadow-pink-500/10 ring-4 ring-pink-500/10'
-                : detectedPlatform === 'facebook'
-                ? 'border-blue-500/70 shadow-blue-500/10 ring-4 ring-blue-500/10'
-                : 'border-slate-200 dark:border-slate-800 focus-within:border-pink-500 focus-within:ring-4 focus-within:ring-pink-500/10'
-            }`}
-          >
-            <div className="flex flex-col sm:flex-row items-center gap-2">
-              {/* Left Input Field with Platform Indicator */}
-              <div className="relative flex-1 w-full flex items-center min-w-0 px-3 py-1.5">
-                {/* Dynamic Icon */}
-                <div className="shrink-0 mr-2.5">
-                  {detectedPlatform === 'instagram' ? (
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 flex items-center justify-center text-white shadow-sm">
-                      <Camera className="w-4 h-4" />
-                    </div>
-                  ) : detectedPlatform === 'facebook' ? (
-                    <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-sm">
-                      <Video className="w-4 h-4" />
-                    </div>
-                  ) : (
-                    <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center">
-                      <Download className="w-4 h-4" />
-                    </div>
-                  )}
-                </div>
+          {/* Glowing Aura backdrop */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#1877F2] rounded-[32px] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
 
-                <input
-                  ref={inputRef}
-                  id="media-url-input"
-                  type="url"
-                  value={url}
-                  onChange={(e) => {
-                    setUrl(e.target.value);
-                    if (error && onClearError) onClearError();
-                  }}
-                  placeholder="Paste Instagram or Facebook URL here…"
-                  required
-                  autoComplete="off"
-                  className="w-full bg-transparent border-0 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none text-sm sm:text-base font-medium pr-16"
-                />
-
-                {/* Right Input Tools (Paste / Clear) */}
-                <div className="absolute right-2 flex items-center gap-1">
-                  {url ? (
-                    <button
-                      type="button"
-                      id="input-clear-btn"
-                      onClick={() => {
-                        setUrl('');
-                        if (onClearError) onClearError();
-                        inputRef.current?.focus();
-                      }}
-                      className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                      title="Clear input"
-                      aria-label="Clear input"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      id="input-paste-btn"
-                      onClick={handlePaste}
-                      className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                      title="Paste from clipboard"
-                    >
-                      <Clipboard className="w-3.5 h-3.5 text-pink-500" />
-                      <span className="hidden sm:inline">Paste</span>
-                    </button>
-                  )}
-                </div>
+          {/* Inner Input Card */}
+          <div className="relative flex flex-col sm:flex-row bg-zinc-900 border border-zinc-800 rounded-[28px] p-2 shadow-2xl items-center gap-2">
+            {/* Left Input Field */}
+            <div className="relative flex-1 w-full flex items-center min-w-0 px-3 py-1">
+              {/* Dynamic Icon */}
+              <div className="shrink-0 mr-2.5">
+                {detectedPlatform === 'instagram' ? (
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] flex items-center justify-center text-white shadow-sm">
+                    <Camera className="w-4 h-4" />
+                  </div>
+                ) : detectedPlatform === 'facebook' ? (
+                  <div className="w-8 h-8 rounded-lg bg-[#1877F2] flex items-center justify-center text-white shadow-sm">
+                    <Video className="w-4 h-4" />
+                  </div>
+                ) : (
+                  <div className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 flex items-center justify-center">
+                    <Download className="w-4 h-4" />
+                  </div>
+                )}
               </div>
 
-              {/* Submit Download Button */}
-              <button
-                id="hero-download-submit-btn"
-                type="submit"
-                disabled={isLoading || !url.trim()}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-pink-500/25 flex items-center justify-center gap-2 shrink-0 cursor-pointer"
-              >
-                {isLoading ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Processing…</span>
-                  </>
+              <input
+                ref={inputRef}
+                id="media-url-input"
+                type="url"
+                value={url}
+                onChange={(e) => {
+                  setUrl(e.target.value);
+                  if (error && onClearError) onClearError();
+                }}
+                placeholder="Paste Instagram or Facebook URL here..."
+                required
+                autoComplete="off"
+                className="w-full bg-transparent border-none outline-none text-base sm:text-lg text-white placeholder:text-zinc-600 font-medium pr-16"
+              />
+
+              {/* Right Input Tools (Paste / Clear) */}
+              <div className="absolute right-2 flex items-center gap-1">
+                {url ? (
+                  <button
+                    type="button"
+                    id="input-clear-btn"
+                    onClick={() => {
+                      setUrl('');
+                      if (onClearError) onClearError();
+                      inputRef.current?.focus();
+                    }}
+                    className="p-1.5 text-zinc-500 hover:text-white rounded-lg hover:bg-zinc-800 transition-colors cursor-pointer"
+                    title="Clear input"
+                    aria-label="Clear input"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
                 ) : (
-                  <>
-                    <Download className="w-4 h-4" />
-                    <span>Download</span>
-                  </>
+                  <button
+                    type="button"
+                    id="input-paste-btn"
+                    onClick={handlePaste}
+                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition-colors cursor-pointer"
+                    title="Paste from clipboard"
+                  >
+                    <Clipboard className="w-3.5 h-3.5 text-[#fd1d1d]" />
+                    <span className="hidden sm:inline">Paste</span>
+                  </button>
                 )}
-              </button>
+              </div>
             </div>
+
+            {/* Artistic Flair Solid High-Contrast Download Button */}
+            <button
+              id="hero-download-submit-btn"
+              type="submit"
+              disabled={isLoading || !url.trim()}
+              className="w-full sm:w-auto bg-white text-black px-8 sm:px-10 py-3.5 sm:py-4 rounded-[22px] font-bold text-base sm:text-lg hover:bg-zinc-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-lg"
+            >
+              {isLoading ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                  <span>Processing...</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4" />
+                  <span>Download</span>
+                </>
+              )}
+            </button>
           </div>
 
-          {/* Real-time detection feedback tag */}
+          {/* Real-time detection feedback */}
           {detectedPlatform && (
-            <div className="mt-2 flex items-center justify-center gap-2 text-xs font-medium">
-              <span className="text-slate-500 dark:text-slate-400">Detected:</span>
+            <div className="mt-2.5 flex items-center justify-center gap-2 text-xs font-semibold">
+              <span className="text-zinc-500 uppercase tracking-wider">Detected:</span>
               <span
-                className={`inline-flex items-center gap-1 font-semibold px-2 py-0.5 rounded-full ${
+                className={`inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full border ${
                   detectedPlatform === 'instagram'
-                    ? 'bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/20'
-                    : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
+                    ? 'bg-pink-950/40 text-pink-400 border-pink-500/30'
+                    : 'bg-blue-950/40 text-blue-400 border-blue-500/30'
                 }`}
               >
                 <Check className="w-3 h-3" />
@@ -259,23 +265,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           )}
         </form>
 
-        {/* Error Notification Alert if any */}
+        {/* Error Notification Alert */}
         {error && (
           <div
             id="hero-error-alert"
-            className="max-w-2xl mx-auto mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300 text-sm flex items-start gap-3 text-left shadow-sm animate-in fade-in slide-in-from-top-2 duration-200"
+            className="max-w-2xl mx-auto mb-6 p-4 rounded-2xl bg-rose-950/40 border border-rose-800 text-rose-300 text-sm flex items-start gap-3 text-left shadow-lg animate-in fade-in slide-in-from-top-2 duration-200"
           >
             <AlertCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="font-semibold">{error}</p>
-              <p className="text-xs text-rose-600/80 dark:text-rose-300/80 mt-1">
-                Make sure the URL is public, accessible, and has no typos. For private profiles or DRM media, downloading is restricted.
+              <p className="font-semibold text-rose-200">{error}</p>
+              <p className="text-xs text-rose-400/80 mt-1">
+                Make sure the URL is public and accessible. For private profiles or DRM media, downloading is restricted.
               </p>
             </div>
             {onClearError && (
               <button
                 onClick={onClearError}
-                className="text-rose-500 hover:text-rose-700 p-1"
+                className="text-rose-400 hover:text-white p-1"
                 aria-label="Dismiss error"
               >
                 <X className="w-4 h-4" />
@@ -285,11 +291,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         )}
 
         {/* Try Sample Chips */}
-        <div className="mb-8">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 mr-2 block sm:inline mb-2 sm:mb-0">
-            Quick Test Examples:
+        <div className="mb-10">
+          <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 mr-2 block sm:inline mb-2 sm:mb-0">
+            Quick Examples:
           </span>
-          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+          <div className="inline-flex flex-wrap items-center justify-center gap-2">
             {samplePresets.map((sample, idx) => (
               <button
                 key={idx}
@@ -300,7 +306,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   if (onClearError) onClearError();
                   onProcess(sample.url);
                 }}
-                className="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 hover:bg-pink-50 dark:bg-slate-800/80 dark:hover:bg-slate-750 text-slate-700 hover:text-pink-600 dark:text-slate-300 dark:hover:text-pink-400 border border-slate-200 dark:border-slate-700/60 transition-all hover:border-pink-300 dark:hover:border-pink-500/40 cursor-pointer shadow-xs"
+                className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 hover:border-zinc-700 transition-all cursor-pointer shadow-sm"
               >
                 {sample.label}
               </button>
@@ -308,23 +314,39 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
         </div>
 
-        {/* Supported Platforms Row */}
-        <div className="pt-6 border-t border-slate-200/80 dark:border-slate-800/80 max-w-xl mx-auto">
-          <div className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3">
-            Supported Content Types
+        {/* Supported Platforms Pill Bar (Artistic Flair Spec) */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+          <span className="text-xs uppercase tracking-[0.3em] text-zinc-500 font-bold">
+            Supported Platforms
+          </span>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 px-4 py-2 bg-zinc-900/60 border border-zinc-800 rounded-full shadow-sm">
+              <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
+              <span className="text-xs sm:text-sm font-semibold text-zinc-300">Instagram</span>
+            </div>
+            <div className="flex items-center space-x-2 px-4 py-2 bg-zinc-900/60 border border-zinc-800 rounded-full shadow-sm">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+              <span className="text-xs sm:text-sm font-semibold text-zinc-300">Facebook</span>
+            </div>
           </div>
-          <div className="flex items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500" />
-              <span>Instagram</span>
-              <span className="text-slate-400 font-normal text-xs">(Reels • Posts • Stories)</span>
-            </div>
-            <div className="text-slate-300 dark:text-slate-700">•</div>
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
-              <span>Facebook</span>
-              <span className="text-slate-400 font-normal text-xs">(Reels • Videos • Posts)</span>
-            </div>
+        </div>
+
+        {/* Artistic Flair 01 / 02 / 03 Quick Step Counters */}
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 w-full max-w-4xl mx-auto pt-10 border-t border-zinc-900">
+          <div className="border-l border-zinc-800 pl-6 text-left">
+            <div className="text-3xl font-bold mb-1 text-white">01</div>
+            <div className="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Copy URL</div>
+            <p className="text-xs text-zinc-400 mt-1">Copy public link from app or browser</p>
+          </div>
+          <div className="border-l border-zinc-800 pl-6 text-left">
+            <div className="text-3xl font-bold mb-1 text-white">02</div>
+            <div className="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Paste Here</div>
+            <p className="text-xs text-zinc-400 mt-1">Auto-detected & high-res streams extracted</p>
+          </div>
+          <div className="border-l border-zinc-800 pl-6 text-left">
+            <div className="text-3xl font-bold mb-1 text-white">03</div>
+            <div className="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Save Media</div>
+            <p className="text-xs text-zinc-400 mt-1">Direct instant saving with zero watermarks</p>
           </div>
         </div>
       </div>

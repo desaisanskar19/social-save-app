@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, Sun, Moon, Sparkles, Clock, HelpCircle, BookOpen, ShieldCheck, Menu, X, Share2, Clipboard } from 'lucide-react';
+import { Download, Sun, Moon, Sparkles, Clock, HelpCircle, BookOpen, ShieldCheck, Menu, X, Clipboard } from 'lucide-react';
 import { ActivePage } from '../types';
 
 interface NavbarProps {
@@ -30,47 +30,35 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   const navItems: { id: ActivePage; label: string; icon: React.ReactNode; badge?: number }[] = [
-    { id: 'home', label: 'Downloader', icon: <Download className="w-4 h-4" /> },
-    { id: 'how-it-works', label: 'How It Works', icon: <BookOpen className="w-4 h-4" /> },
-    { id: 'faq', label: 'FAQ', icon: <HelpCircle className="w-4 h-4" /> },
-    { id: 'history', label: 'History', icon: <Clock className="w-4 h-4" />, badge: historyCount },
-    { id: 'privacy', label: 'Compliance', icon: <ShieldCheck className="w-4 h-4" /> },
+    { id: 'home', label: 'Download', icon: <Download className="w-3.5 h-3.5" /> },
+    { id: 'how-it-works', label: 'How it Works', icon: <BookOpen className="w-3.5 h-3.5" /> },
+    { id: 'faq', label: 'FAQ', icon: <HelpCircle className="w-3.5 h-3.5" /> },
+    { id: 'history', label: 'History', icon: <Clock className="w-3.5 h-3.5" />, badge: historyCount },
+    { id: 'privacy', label: 'Compliance', icon: <ShieldCheck className="w-3.5 h-3.5" /> },
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/80 backdrop-blur-lg transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        {/* Brand Logo */}
+    <header className="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-[#0A0A0A]/85 backdrop-blur-xl transition-colors">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 h-20 flex items-center justify-between gap-4">
+        {/* Brand Logo with 12-deg rotated artistic gradient */}
         <button
           id="nav-logo-button"
           onClick={() => {
             setActivePage('home');
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
-          className="flex items-center gap-2.5 group focus:outline-none"
+          className="flex items-center space-x-3 group focus:outline-none cursor-pointer"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-600 via-rose-500 to-amber-500 p-0.5 shadow-md shadow-pink-500/20 group-hover:scale-105 transition-transform">
-            <div className="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center text-white">
-              <Download className="w-5 h-5 text-pink-400 group-hover:translate-y-0.5 transition-transform" />
-            </div>
+          <div className="w-8 h-8 bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] rounded-lg rotate-12 flex items-center justify-center shadow-lg shadow-pink-500/20 group-hover:rotate-0 transition-transform duration-300">
+            <Download className="w-4 h-4 text-white -rotate-12 group-hover:rotate-0 transition-transform duration-300" />
           </div>
-          <div className="text-left">
-            <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
-                SocialSave
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/20">
-                PRO
-              </span>
-            </div>
-            <span className="text-[11px] text-slate-500 dark:text-slate-400 block -mt-1 font-medium">
-              Instagram & Facebook Media
-            </span>
-          </div>
+          <span className="text-2xl font-bold tracking-tight text-white">
+            SocialSave
+          </span>
         </button>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1">
+        {/* Desktop Navigation with Artistic Flair tracking and active underlines */}
+        <nav className="hidden md:flex items-center space-x-8 text-xs font-semibold uppercase tracking-widest text-zinc-400">
           {navItems.map((item) => {
             const isActive = activePage === item.id;
             return (
@@ -83,16 +71,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }}
-                className={`relative px-3.5 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
+                className={`flex items-center gap-1.5 transition-colors cursor-pointer ${
                   isActive
-                    ? 'text-pink-600 dark:text-pink-400 bg-pink-50 dark:bg-pink-950/40 font-semibold'
-                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900'
+                    ? 'text-white underline underline-offset-8 decoration-[#1877F2] font-bold decoration-2'
+                    : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                {item.icon}
                 <span>{item.label}</span>
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span className="ml-1 text-[11px] font-bold px-1.5 py-0.2 rounded-full bg-pink-500 text-white leading-none">
+                  <span className="ml-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#fd1d1d] text-white leading-none">
                     {item.badge}
                   </span>
                 )}
@@ -102,38 +89,45 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center space-x-4">
           {onQuickPaste && (
             <button
               id="nav-quick-paste-btn"
               onClick={onQuickPaste}
-              title="Paste clipboard and analyze"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors border border-slate-200 dark:border-slate-700"
+              title="Paste clipboard URL"
+              className="hidden sm:flex items-center space-x-2 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-all cursor-pointer"
             >
-              <Clipboard className="w-3.5 h-3.5 text-pink-500" />
+              <Clipboard className="w-3.5 h-3.5 text-[#fd1d1d]" />
               <span>Paste URL</span>
             </button>
           )}
 
-          {/* Theme toggle */}
+          {/* Theme toggle custom styled switch */}
           <button
             id="nav-theme-toggle-btn"
             onClick={toggleTheme}
             aria-label="Toggle dark/light mode"
-            className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-800"
+            className="w-10 h-6 bg-zinc-800 hover:bg-zinc-700 rounded-full flex items-center px-1 relative transition-colors cursor-pointer"
+            title={`Current: ${theme} mode`}
           >
-            {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-amber-400 hover:rotate-45 transition-transform" />
-            ) : (
-              <Moon className="w-4 h-4 text-slate-700 hover:-rotate-12 transition-transform" />
-            )}
+            <div
+              className={`w-4 h-4 bg-white rounded-full transition-transform flex items-center justify-center ${
+                theme === 'dark' ? 'translate-x-4 bg-white' : 'translate-x-0 bg-amber-300'
+              }`}
+            >
+              {theme === 'dark' ? (
+                <Moon className="w-2.5 h-2.5 text-black" />
+              ) : (
+                <Sun className="w-2.5 h-2.5 text-black" />
+              )}
+            </div>
           </button>
 
           {/* Mobile menu button */}
           <button
             id="nav-mobile-menu-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-800"
+            className="md:hidden p-2 rounded-xl text-zinc-400 hover:text-white bg-zinc-900 border border-zinc-800 transition-colors"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -145,7 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {mobileMenuOpen && (
         <div
           id="mobile-drawer-menu"
-          className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl px-4 py-4 space-y-1 shadow-2xl animate-in slide-in-from-top duration-200"
+          className="md:hidden border-b border-zinc-800 bg-[#0A0A0A]/95 backdrop-blur-2xl px-6 py-5 space-y-2 shadow-2xl animate-in slide-in-from-top duration-200"
         >
           {navItems.map((item) => {
             const isActive = activePage === item.id;
@@ -157,10 +151,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setActivePage(item.id);
                   setMobileMenuOpen(false);
                 }}
-                className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-xs uppercase tracking-widest font-semibold transition-colors ${
                   isActive
-                    ? 'text-pink-600 dark:text-pink-400 bg-pink-50 dark:bg-pink-950/40 font-semibold'
-                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900'
+                    ? 'text-white bg-zinc-900 border border-zinc-800 font-bold'
+                    : 'text-zinc-400 hover:text-white hover:bg-zinc-900/50'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -168,20 +162,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span>{item.label}</span>
                 </div>
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-pink-500 text-white">
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-[#fd1d1d] text-white">
                     {item.badge}
                   </span>
                 )}
               </button>
             );
           })}
-
-          <div className="pt-3 mt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between px-2 text-xs text-slate-500">
-            <span>Fast, Secure, No registration</span>
-            <span className="flex items-center gap-1 text-pink-500 font-medium">
-              <Sparkles className="w-3.5 h-3.5" /> 100% Free
-            </span>
-          </div>
         </div>
       )}
     </header>

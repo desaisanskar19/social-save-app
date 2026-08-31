@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, ShieldCheck, Heart, Sparkles, Activity } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { ActivePage } from '../types';
 
 interface FooterProps {
@@ -8,41 +8,41 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
-    <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 text-xs py-12 transition-colors">
+    <footer className="border-t border-zinc-850 bg-[#0A0A0A] text-zinc-400 text-xs py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-100 dark:border-slate-800/80">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-zinc-850">
           {/* Brand Col */}
-          <div className="md:col-span-5 space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-pink-600 to-amber-500 flex items-center justify-center text-white">
+          <div className="md:col-span-5 space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] flex items-center justify-center text-white shadow-md">
                 <Download className="w-4 h-4 text-white" />
               </div>
-              <span className="font-extrabold text-lg bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+              <span className="font-black text-xl tracking-tight text-white uppercase">
                 SocialSave
               </span>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm leading-relaxed">
-              Fast, modern, and reliable social media media downloader. Download publicly accessible Instagram Reels, Posts, Stories, and Facebook Videos in original HD quality.
+            <p className="text-xs text-zinc-400 max-w-sm leading-relaxed">
+              Fast, modern, and reliable social media downloader. Download publicly accessible Instagram Reels, Posts, Stories, and Facebook Videos in original HD quality.
             </p>
-            <div className="flex items-center gap-2 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="flex items-center gap-2 text-[11px] text-emerald-400 font-medium">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>All extraction services online & active</span>
             </div>
           </div>
 
           {/* Navigation Links */}
-          <div className="md:col-span-3 space-y-2">
-            <h4 className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="font-bold text-white uppercase tracking-widest text-[11px]">
               Platform Tools
             </h4>
-            <ul className="space-y-1.5">
+            <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => {
                     onNavigate('home');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="hover:text-pink-500 transition-colors"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   Instagram Reels Downloader
                 </button>
@@ -53,7 +53,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     onNavigate('home');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="hover:text-pink-500 transition-colors"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   Instagram Photo & Story Saver
                 </button>
@@ -64,7 +64,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     onNavigate('home');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="hover:text-pink-500 transition-colors"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   Facebook Video & Reel Downloader
                 </button>
@@ -72,7 +72,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => onNavigate('how-it-works')}
-                  className="hover:text-pink-500 transition-colors"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   How It Works Guide
                 </button>
@@ -80,7 +80,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => onNavigate('history')}
-                  className="hover:text-pink-500 transition-colors"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   My Download History
                 </button>
@@ -89,15 +89,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
 
           {/* Legal & Compliance */}
-          <div className="md:col-span-4 space-y-2">
-            <h4 className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
+          <div className="md:col-span-4 space-y-3">
+            <h4 className="font-bold text-white uppercase tracking-widest text-[11px]">
               Compliance & Legal
             </h4>
-            <ul className="space-y-1.5">
+            <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => onNavigate('privacy')}
-                  className="hover:text-pink-500 transition-colors"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   Privacy Policy (Zero-Log)
                 </button>
@@ -105,7 +105,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => onNavigate('terms')}
-                  className="hover:text-pink-500 transition-colors"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   Terms of Service & Fair Use
                 </button>
@@ -113,7 +113,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => onNavigate('dmca')}
-                  className="hover:text-pink-500 transition-colors"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   DMCA & Copyright Takedowns
                 </button>
@@ -121,7 +121,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => onNavigate('faq')}
-                  className="hover:text-pink-500 transition-colors"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   Frequently Asked Questions
                 </button>
@@ -131,7 +131,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         {/* Disclaimer Bottom Bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 dark:text-slate-500">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-500">
           <p>
             Disclaimer: SocialSave is an independent utility and is not affiliated with, endorsed, or sponsored by Meta, Instagram, or Facebook. All trademarks belong to their respective owners.
           </p>
