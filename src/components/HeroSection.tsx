@@ -123,7 +123,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
         {/* Artistic Flair Tag */}
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8 shadow-md">
+        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-slate-200/80 dark:bg-zinc-900/80 border border-slate-300 dark:border-zinc-800 text-xs font-bold uppercase tracking-widest text-zinc-700 dark:text-zinc-400 mb-8 shadow-sm">
           <span className="w-2 h-2 rounded-full bg-gradient-to-r from-[#833ab4] to-[#fd1d1d] animate-ping" />
           <span>High-Speed Social Content Downloader</span>
         </div>
@@ -131,7 +131,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         {/* Artistic Flair Display Headline */}
         <h1
           id="hero-heading"
-          className="text-4xl sm:text-6xl md:text-[76px] font-extrabold leading-[0.95] tracking-tighter mb-6 text-white uppercase"
+          className="text-4xl sm:text-6xl md:text-[76px] font-extrabold leading-[0.95] tracking-tighter mb-6 text-zinc-900 dark:text-white uppercase"
         >
           Download{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045]">
@@ -143,12 +143,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         {/* Subtitle */}
         <p
           id="hero-subtitle"
-          className="text-base sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
+          className="text-base sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
         >
           Paste a public Instagram or Facebook URL and download high-quality media in seconds. Fast, anonymous, and high-resolution.
         </p>
 
-        {/* URL Input Form with Gradient Aura & Zinc Card */}
+        {/* URL Input Form with Gradient Aura & Card */}
         <form
           id="download-form"
           onSubmit={handleSubmit}
@@ -158,7 +158,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <div className="absolute -inset-1 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#1877F2] rounded-[32px] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
 
           {/* Inner Input Card */}
-          <div className="relative flex flex-col sm:flex-row bg-zinc-900 border border-zinc-800 rounded-[28px] p-2 shadow-2xl items-center gap-2">
+          <div className="relative flex flex-col sm:flex-row bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-[28px] p-2 shadow-xl dark:shadow-2xl items-center gap-2 transition-colors">
             {/* Left Input Field */}
             <div className="relative flex-1 w-full flex items-center min-w-0 px-3 py-1">
               {/* Dynamic Icon */}
@@ -172,7 +172,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     <Video className="w-4 h-4" />
                   </div>
                 ) : (
-                  <div className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 flex items-center justify-center">
                     <Download className="w-4 h-4" />
                   </div>
                 )}
@@ -190,7 +190,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 placeholder="Paste Instagram or Facebook URL here..."
                 required
                 autoComplete="off"
-                className="w-full bg-transparent border-none outline-none text-base sm:text-lg text-white placeholder:text-zinc-600 font-medium pr-16"
+                className="w-full bg-transparent border-none outline-none text-base sm:text-lg text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 font-medium pr-16"
               />
 
               {/* Right Input Tools (Paste / Clear) */}
@@ -204,7 +204,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       if (onClearError) onClearError();
                       inputRef.current?.focus();
                     }}
-                    className="p-1.5 text-zinc-500 hover:text-white rounded-lg hover:bg-zinc-800 transition-colors cursor-pointer"
+                    className="p-1.5 text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
                     title="Clear input"
                     aria-label="Clear input"
                   >
@@ -215,7 +215,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     type="button"
                     id="input-paste-btn"
                     onClick={handlePaste}
-                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition-colors cursor-pointer"
+                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-300 transition-colors cursor-pointer"
                     title="Paste from clipboard"
                   >
                     <Clipboard className="w-3.5 h-3.5 text-[#fd1d1d]" />
@@ -230,11 +230,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               id="hero-download-submit-btn"
               type="submit"
               disabled={isLoading || !url.trim()}
-              className="w-full sm:w-auto bg-white text-black px-8 sm:px-10 py-3.5 sm:py-4 rounded-[22px] font-bold text-base sm:text-lg hover:bg-zinc-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-lg"
+              className="w-full sm:w-auto bg-zinc-900 dark:bg-white text-white dark:text-black px-8 sm:px-10 py-3.5 sm:py-4 rounded-[22px] font-bold text-base sm:text-lg hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-lg"
             >
               {isLoading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-white/30 dark:border-black/30 border-t-white dark:border-t-black rounded-full animate-spin" />
                   <span>Processing...</span>
                 </>
               ) : (
@@ -253,8 +253,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span
                 className={`inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full border ${
                   detectedPlatform === 'instagram'
-                    ? 'bg-pink-950/40 text-pink-400 border-pink-500/30'
-                    : 'bg-blue-950/40 text-blue-400 border-blue-500/30'
+                    ? 'bg-pink-100 dark:bg-pink-950/40 text-pink-700 dark:text-pink-400 border-pink-300 dark:border-pink-500/30'
+                    : 'bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 border-blue-300 dark:border-blue-500/30'
                 }`}
               >
                 <Check className="w-3 h-3" />
@@ -269,19 +269,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         {error && (
           <div
             id="hero-error-alert"
-            className="max-w-2xl mx-auto mb-6 p-4 rounded-2xl bg-rose-950/40 border border-rose-800 text-rose-300 text-sm flex items-start gap-3 text-left shadow-lg animate-in fade-in slide-in-from-top-2 duration-200"
+            className="max-w-2xl mx-auto mb-6 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-sm flex items-start gap-3 text-left shadow-lg animate-in fade-in slide-in-from-top-2 duration-200"
           >
             <AlertCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="font-semibold text-rose-200">{error}</p>
-              <p className="text-xs text-rose-400/80 mt-1">
+              <p className="font-semibold text-rose-900 dark:text-rose-200">{error}</p>
+              <p className="text-xs text-rose-700 dark:text-rose-400/80 mt-1">
                 Make sure the URL is public and accessible. For private profiles or DRM media, downloading is restricted.
               </p>
             </div>
             {onClearError && (
               <button
                 onClick={onClearError}
-                className="text-rose-400 hover:text-white p-1"
+                className="text-rose-600 hover:text-rose-900 dark:text-rose-400 dark:hover:text-white p-1 cursor-pointer"
                 aria-label="Dismiss error"
               >
                 <X className="w-4 h-4" />
@@ -306,7 +306,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   if (onClearError) onClearError();
                   onProcess(sample.url);
                 }}
-                className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 hover:border-zinc-700 transition-all cursor-pointer shadow-sm"
+                className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white hover:bg-slate-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white border border-slate-300 dark:border-zinc-800 hover:border-slate-400 dark:hover:border-zinc-700 transition-all cursor-pointer shadow-sm"
               >
                 {sample.label}
               </button>
@@ -320,33 +320,33 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             Supported Platforms
           </span>
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2 px-4 py-2 bg-zinc-900/60 border border-zinc-800 rounded-full shadow-sm">
+            <div className="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 rounded-full shadow-sm">
               <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-              <span className="text-xs sm:text-sm font-semibold text-zinc-300">Instagram</span>
+              <span className="text-xs sm:text-sm font-semibold text-zinc-800 dark:text-zinc-300">Instagram</span>
             </div>
-            <div className="flex items-center space-x-2 px-4 py-2 bg-zinc-900/60 border border-zinc-800 rounded-full shadow-sm">
+            <div className="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 rounded-full shadow-sm">
               <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-              <span className="text-xs sm:text-sm font-semibold text-zinc-300">Facebook</span>
+              <span className="text-xs sm:text-sm font-semibold text-zinc-800 dark:text-zinc-300">Facebook</span>
             </div>
           </div>
         </div>
 
         {/* Artistic Flair 01 / 02 / 03 Quick Step Counters */}
-        <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 w-full max-w-4xl mx-auto pt-10 border-t border-zinc-900">
-          <div className="border-l border-zinc-800 pl-6 text-left">
-            <div className="text-3xl font-bold mb-1 text-white">01</div>
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 w-full max-w-4xl mx-auto pt-10 border-t border-slate-200 dark:border-zinc-900">
+          <div className="border-l border-slate-300 dark:border-zinc-800 pl-6 text-left">
+            <div className="text-3xl font-bold mb-1 text-zinc-900 dark:text-white">01</div>
             <div className="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Copy URL</div>
-            <p className="text-xs text-zinc-400 mt-1">Copy public link from app or browser</p>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">Copy public link from app or browser</p>
           </div>
-          <div className="border-l border-zinc-800 pl-6 text-left">
-            <div className="text-3xl font-bold mb-1 text-white">02</div>
+          <div className="border-l border-slate-300 dark:border-zinc-800 pl-6 text-left">
+            <div className="text-3xl font-bold mb-1 text-zinc-900 dark:text-white">02</div>
             <div className="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Paste Here</div>
-            <p className="text-xs text-zinc-400 mt-1">Auto-detected & high-res streams extracted</p>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">Auto-detected & high-res streams extracted</p>
           </div>
-          <div className="border-l border-zinc-800 pl-6 text-left">
-            <div className="text-3xl font-bold mb-1 text-white">03</div>
+          <div className="border-l border-slate-300 dark:border-zinc-800 pl-6 text-left">
+            <div className="text-3xl font-bold mb-1 text-zinc-900 dark:text-white">03</div>
             <div className="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Save Media</div>
-            <p className="text-xs text-zinc-400 mt-1">Direct instant saving with zero watermarks</p>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">Direct instant saving with zero watermarks</p>
           </div>
         </div>
       </div>

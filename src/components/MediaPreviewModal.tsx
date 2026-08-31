@@ -31,11 +31,11 @@ export const MediaPreviewModal: React.FC<MediaPreviewModalProps> = ({
     >
       <div
         id="media-preview-modal-content"
-        className="bg-zinc-900 border border-zinc-800 rounded-[28px] max-w-2xl w-full overflow-hidden shadow-2xl text-white relative animate-in zoom-in-95 duration-200"
+        className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-[28px] max-w-2xl w-full overflow-hidden shadow-2xl text-zinc-900 dark:text-white relative animate-in zoom-in-95 duration-200 transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-4 sm:p-5 border-b border-zinc-800 flex items-center justify-between">
+        <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span
               className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full ${
@@ -46,12 +46,12 @@ export const MediaPreviewModal: React.FC<MediaPreviewModalProps> = ({
             >
               {media.platform.toUpperCase()} {media.contentType.toUpperCase()}
             </span>
-            <span className="text-xs text-zinc-400 font-medium">In-App Media Player</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">In-App Media Player</span>
           </div>
           <button
             id="close-preview-modal-btn"
             onClick={onClose}
-            className="p-2 text-zinc-400 hover:text-white rounded-full hover:bg-zinc-800 transition-colors cursor-pointer"
+            className="p-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-full hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -94,12 +94,12 @@ export const MediaPreviewModal: React.FC<MediaPreviewModalProps> = ({
         </div>
 
         {/* Details & Actions Footer */}
-        <div className="p-4 sm:p-5 bg-zinc-900 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="p-4 sm:p-5 bg-slate-50 dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="w-full sm:w-auto text-left">
-            <h4 className="text-sm font-bold text-white truncate max-w-md">
+            <h4 className="text-sm font-bold text-zinc-900 dark:text-white truncate max-w-md">
               {media.title}
             </h4>
-            <p className="text-xs text-zinc-400 mt-0.5">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
               Selected: <span className="text-[#fd1d1d] font-semibold">{currentFormat?.label || currentFormat?.quality}</span>
               {currentFormat?.size && ` • ${currentFormat.size}`}
             </p>

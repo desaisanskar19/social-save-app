@@ -69,17 +69,34 @@ export const ResultCard: React.FC<ResultCardProps> = ({
       // Trigger confetti celebration
       triggerConfetti();
 
-      // Trigger proxy download
       const cleanFilename = `${media.platform}_${media.contentType}_${media.id}.${targetFormat.ext}`;
-      const downloadEndpoint = `/api/proxy-download?url=${encodeURIComponent(targetFormat.url)}&filename=${encodeURIComponent(cleanFilename)}&ext=${targetFormat.ext}`;
 
-      // Create a temporary hidden anchor to trigger standard browser download
-      const a = document.createElement('a');
-      a.href = downloadEndpoint;
-      a.download = cleanFilename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      // Try blob download for seamless direct save
+      try {
+        const response = await fetch(targetFormat.url);
+        if (response.ok) {
+          const blob = await response.blob();
+          const blobUrl = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = cleanFilename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => window.URL.revokeObjectURL(blobUrl), 1000);
+        } else {
+          throw new Error('Direct fetch status: ' + response.status);
+        }
+      } catch (directErr) {
+        // Fallback to proxy endpoint
+        const a = document.createElement('a');
+        a.href = `/api/proxy-download?url=${encodeURIComponent(targetFormat.url)}&filename=${encodeURIComponent(cleanFilename)}&ext=${targetFormat.ext}`;
+        a.download = cleanFilename;
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
 
       if (onDownloaded) {
         onDownloaded(media, targetFormat);
@@ -90,16 +107,16 @@ export const ResultCard: React.FC<ResultCardProps> = ({
         showToast({
           type: 'success',
           title: 'Download Ready!',
-          message: `Saved ${targetFormat.quality} to your downloads.`,
+          message: `Saved ${targetFormat.quality} to your device.`,
         });
-      }, 1000);
+      }, 800);
     } catch (err) {
       console.error('Download error:', err);
       setIsDownloading(false);
       showToast({
         type: 'error',
-        title: 'Download Failed',
-        message: 'Unable to stream file directly. Opening media link directly…',
+        title: 'Download Fallback',
+        message: 'Opening media link directly…',
       });
       window.open(targetFormat.url, '_blank');
     }
@@ -112,9 +129,9 @@ export const ResultCard: React.FC<ResultCardProps> = ({
       id={`result-card-${media.id}`}
       className="max-w-4xl mx-auto px-4 sm:px-6 my-8 animate-in fade-in slide-in-from-bottom-4 duration-400"
     >
-      <div className="bg-zinc-900 border border-zinc-800 rounded-[28px] overflow-hidden shadow-2xl shadow-black/60 relative">
+      <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-[28px] overflow-hidden shadow-xl dark:shadow-2xl dark:shadow-black/60 relative transition-colors">
         {/* Top Platform Header Bar */}
-        <div className="px-6 py-4 border-b border-zinc-800 flex flex-wrap items-center justify-between gap-3 bg-zinc-950/60">
+        <div className="px-6 py-4 border-b border-slate-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3 bg-slate-50 dark:bg-zinc-950/60">
           <div className="flex items-center gap-3">
             <span
               className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white shadow-sm ${
@@ -127,13 +144,13 @@ export const ResultCard: React.FC<ResultCardProps> = ({
             </span>
 
             {media.duration && (
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700">
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-slate-300 dark:border-zinc-700">
                 ⏱ {media.duration}
               </span>
             )}
 
             {media.formats.some((f) => f.isHd) && (
-              <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+              <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                 HD 1080p
               </span>
             )}
@@ -144,12 +161,12 @@ export const ResultCard: React.FC<ResultCardProps> = ({
               id="result-copy-link-btn"
               type="button"
               onClick={handleCopyLink}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-zinc-300 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 border border-slate-300 dark:border-zinc-700 transition-colors cursor-pointer"
             >
               {isCopied ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-400 font-bold">Copied!</span>
+                  <Check className="w-3.5 h-3.5 text-emerald-500" />
+                  <span className="text-emerald-500 font-bold">Copied!</span>
                 </>
               ) : (
                 <>
@@ -164,7 +181,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
               href={media.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full text-zinc-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 transition-colors"
+              className="p-2 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 border border-slate-300 dark:border-zinc-700 transition-colors"
               title="Open source URL on social platform"
             >
               <ExternalLink className="w-4 h-4" />
@@ -177,7 +194,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-start">
             {/* Left Column: Media Thumbnail / Preview Box */}
             <div className="md:col-span-5 flex flex-col items-center">
-              <div className="relative w-full aspect-[4/5] max-h-[380px] rounded-[22px] overflow-hidden bg-black group shadow-md border border-zinc-800">
+              <div className="relative w-full aspect-[4/5] max-h-[380px] rounded-[22px] overflow-hidden bg-black group shadow-md border border-slate-200 dark:border-zinc-800">
                 <img
                   src={
                     media.slides && media.slides[activeSlideIndex]
@@ -221,7 +238,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
                             )}
                           </p>
                           {media.authorHandle && (
-                            <p className="text-[10px] text-zinc-400 font-medium truncate">
+                            <p className="text-[10px] text-zinc-300 font-medium truncate">
                               {media.authorHandle}
                             </p>
                           )}
@@ -235,7 +252,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
               {/* Multi-slide Carousel Navigator */}
               {media.slides && media.slides.length > 1 && (
                 <div className="mt-3 w-full">
-                  <div className="flex items-center justify-between text-xs font-semibold text-zinc-400 mb-1.5">
+                  <div className="flex items-center justify-between text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1.5">
                     <span className="flex items-center gap-1">
                       <Layers className="w-3.5 h-3.5 text-[#fd1d1d]" />
                       Carousel ({media.slides.length} Items)
@@ -270,12 +287,12 @@ export const ResultCard: React.FC<ResultCardProps> = ({
             <div className="md:col-span-7 flex flex-col justify-between h-full space-y-6">
               <div>
                 {/* Title and Metadata */}
-                <h3 className="text-lg sm:text-2xl font-bold text-white leading-snug tracking-tight mb-2">
+                <h3 className="text-lg sm:text-2xl font-bold text-zinc-900 dark:text-white leading-snug tracking-tight mb-2">
                   {media.title}
                 </h3>
 
                 {/* Social Metrics */}
-                <div className="flex items-center gap-4 text-xs font-medium text-zinc-400 mb-6">
+                <div className="flex items-center gap-4 text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-6">
                   {media.likesCount !== undefined && media.likesCount > 0 && (
                     <span className="flex items-center gap-1">
                       <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500/20" />
@@ -284,7 +301,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
                   )}
                   {media.commentsCount !== undefined && media.commentsCount > 0 && (
                     <span className="flex items-center gap-1">
-                      <MessageCircle className="w-3.5 h-3.5 text-blue-400" />
+                      <MessageCircle className="w-3.5 h-3.5 text-blue-500" />
                       {media.commentsCount.toLocaleString()} comments
                     </span>
                   )}
@@ -298,10 +315,10 @@ export const ResultCard: React.FC<ResultCardProps> = ({
                 {/* Available Quality Options Section */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                    <label className="text-xs font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400">
                       Select Quality Format:
                     </label>
-                    <span className="text-xs font-semibold text-zinc-400">
+                    <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
                       {media.formats.length} formats available
                     </span>
                   </div>
@@ -320,18 +337,18 @@ export const ResultCard: React.FC<ResultCardProps> = ({
                           onClick={() => setSelectedFormatId(fmt.id)}
                           className={`p-3 rounded-2xl border text-left transition-all flex items-start justify-between cursor-pointer ${
                             isSelected
-                              ? 'border-[#fd1d1d] bg-zinc-800/90 ring-2 ring-[#fd1d1d]/30 shadow-md text-white'
-                              : 'border-zinc-800 bg-zinc-900 hover:border-zinc-700 hover:bg-zinc-800/50 text-zinc-300'
+                              ? 'border-[#fd1d1d] bg-rose-50/50 dark:bg-zinc-800/90 ring-2 ring-[#fd1d1d]/30 shadow-md text-zinc-900 dark:text-white'
+                              : 'border-slate-200 dark:border-zinc-800 bg-slate-50/60 dark:bg-zinc-900 hover:border-slate-300 dark:hover:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-800/50 text-zinc-700 dark:text-zinc-300'
                           }`}
                         >
                           <div className="flex items-start gap-2.5 min-w-0">
                             <div
                               className={`p-2 rounded-xl shrink-0 mt-0.5 ${
                                 isVideoFormat
-                                  ? 'bg-blue-500/15 text-blue-400'
+                                  ? 'bg-blue-500/15 text-blue-600 dark:text-blue-400'
                                   : isAudioFormat
-                                  ? 'bg-purple-500/15 text-purple-400'
-                                  : 'bg-amber-500/15 text-amber-400'
+                                  ? 'bg-purple-500/15 text-purple-600 dark:text-purple-400'
+                                  : 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
                               }`}
                             >
                               {isVideoFormat ? (
@@ -346,13 +363,13 @@ export const ResultCard: React.FC<ResultCardProps> = ({
                               <p
                                 className={`text-xs font-bold truncate ${
                                   isSelected
-                                    ? 'text-white'
-                                    : 'text-zinc-200'
+                                    ? 'text-zinc-900 dark:text-white'
+                                    : 'text-zinc-800 dark:text-zinc-200'
                                 }`}
                               >
                                 {fmt.quality}
                               </p>
-                              <p className="text-[11px] text-zinc-400 truncate">
+                              <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate">
                                 {fmt.label}
                               </p>
                             </div>
@@ -360,13 +377,13 @@ export const ResultCard: React.FC<ResultCardProps> = ({
 
                           <div className="text-right shrink-0 ml-2">
                             {fmt.size && (
-                              <span className="text-[10px] font-semibold text-zinc-400 block">
+                              <span className="text-[10px] font-semibold text-zinc-500 dark:text-zinc-400 block">
                                 {fmt.size}
                               </span>
                             )}
                             <span
                               className={`text-[10px] font-bold uppercase ${
-                                isSelected ? 'text-[#fd1d1d]' : 'text-zinc-500'
+                                isSelected ? 'text-[#fd1d1d]' : 'text-zinc-400 dark:text-zinc-500'
                               }`}
                             >
                               {fmt.ext}
@@ -380,17 +397,17 @@ export const ResultCard: React.FC<ResultCardProps> = ({
               </div>
 
               {/* Main Action Buttons */}
-              <div className="pt-4 border-t border-zinc-800 space-y-3">
+              <div className="pt-4 border-t border-slate-200 dark:border-zinc-800 space-y-3">
                 <div className="flex flex-col sm:flex-row gap-3">
                   <button
                     id="result-download-now-btn"
                     onClick={() => handleDownload()}
                     disabled={isDownloading}
-                    className="flex-1 py-4 px-6 rounded-[20px] font-bold text-base text-black bg-white hover:bg-zinc-200 active:scale-[0.98] transition-all shadow-xl flex items-center justify-center gap-2.5 cursor-pointer disabled:opacity-50"
+                    className="flex-1 py-4 px-6 rounded-[20px] font-bold text-base text-white dark:text-black bg-zinc-900 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 active:scale-[0.98] transition-all shadow-xl flex items-center justify-center gap-2.5 cursor-pointer disabled:opacity-50"
                   >
                     {isDownloading ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-white/30 dark:border-black/30 border-t-white dark:border-t-black rounded-full animate-spin" />
                         <span>Saving {selectedFormat?.quality}...</span>
                       </>
                     ) : (
@@ -404,7 +421,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
                   <button
                     id="result-preview-player-btn"
                     onClick={() => onPreview(selectedFormat)}
-                    className="px-5 py-4 rounded-[20px] font-bold text-sm text-zinc-200 bg-zinc-800 hover:bg-zinc-700 hover:text-white transition-colors flex items-center justify-center gap-2 cursor-pointer border border-zinc-700"
+                    className="px-5 py-4 rounded-[20px] font-bold text-sm text-zinc-800 dark:text-zinc-200 bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-white transition-colors flex items-center justify-center gap-2 cursor-pointer border border-slate-300 dark:border-zinc-700"
                   >
                     <Eye className="w-4 h-4 text-[#fd1d1d]" />
                     <span>Watch Preview</span>
@@ -413,7 +430,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
 
                 {/* Compliance notice */}
                 <div className="flex items-center gap-2 text-[11px] text-zinc-500">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                   <span>Public content only. Downloaded directly in original stream quality without watermarks.</span>
                 </div>
               </div>

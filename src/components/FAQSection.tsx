@@ -53,26 +53,26 @@ export const FAQSection: React.FC = () => {
   return (
     <section id="faq-section" className="max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-16">
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-bold uppercase tracking-widest mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-400 text-xs font-bold uppercase tracking-widest mb-4">
           <HelpCircle className="w-3.5 h-3.5 text-[#fd1d1d]" />
           <span>Knowledge Base</span>
         </div>
-        <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-3 uppercase">
+        <h2 className="text-3xl sm:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight mb-3 uppercase">
           Frequently Asked Questions
         </h2>
-        <p className="text-xs sm:text-sm text-zinc-400">
+        <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
           Find quick answers about saving social media content, file saving on mobile, and compliance.
         </p>
 
         {/* Search input */}
         <div className="relative max-w-md mx-auto mt-6">
-          <Search className="w-4 h-4 text-zinc-500 absolute left-4 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-zinc-400 dark:text-zinc-500 absolute left-4 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search questions (e.g. iPhone, MP3, private)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 rounded-full bg-zinc-900 border border-zinc-800 text-xs sm:text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-600 shadow-md"
+            className="w-full pl-11 pr-4 py-3 rounded-full bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 text-xs sm:text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-slate-500 dark:focus:border-zinc-600 shadow-md"
           />
         </div>
       </div>
@@ -88,22 +88,22 @@ export const FAQSection: React.FC = () => {
             return (
               <div
                 key={index}
-                className="bg-zinc-900 border border-zinc-800 rounded-[22px] overflow-hidden shadow-md transition-all hover:border-zinc-700"
+                className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-[22px] overflow-hidden shadow-sm dark:shadow-md transition-all hover:border-slate-300 dark:hover:border-zinc-700"
               >
                 <button
                   id={`faq-toggle-${index}`}
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full p-5 text-left font-bold text-sm sm:text-base text-white flex items-center justify-between gap-4 hover:text-[#fd1d1d] transition-colors cursor-pointer"
+                  className="w-full p-5 text-left font-bold text-sm sm:text-base text-zinc-900 dark:text-white flex items-center justify-between gap-4 hover:text-[#fd1d1d] transition-colors cursor-pointer"
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
-                    className={`w-4 h-4 shrink-0 transition-transform duration-200 text-zinc-400 ${
+                    className={`w-4 h-4 shrink-0 transition-transform duration-200 text-zinc-500 dark:text-zinc-400 ${
                       isOpen ? 'rotate-180 text-[#fd1d1d]' : ''
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-0 text-xs sm:text-sm text-zinc-400 leading-relaxed border-t border-zinc-800/80 pt-3 animate-in fade-in duration-150">
+                  <div className="px-5 pb-5 pt-0 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed border-t border-slate-100 dark:border-zinc-800/80 pt-3 animate-in fade-in duration-150">
                     {faq.a}
                   </div>
                 )}

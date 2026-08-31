@@ -36,16 +36,16 @@ export const FeaturesSection: React.FC = () => {
   ];
 
   return (
-    <section id="features-section" className="py-20 bg-zinc-950/60 border-y border-zinc-850">
+    <section id="features-section" className="py-20 bg-slate-50/70 dark:bg-zinc-950/60 border-y border-slate-200 dark:border-zinc-850 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <div className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-500 mb-3">
             Core Highlights
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3 uppercase">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight mb-3 uppercase">
             Engineered For Speed & Quality
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-400">
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
             Engineered for high-speed social media extraction with a focus on privacy and visual fidelity.
           </p>
         </div>
@@ -54,15 +54,15 @@ export const FeaturesSection: React.FC = () => {
           {features.map((feature, idx) => (
             <div
               key={idx}
-              className="bg-zinc-900 border border-zinc-800 rounded-[24px] p-6 shadow-xl hover:border-zinc-700 transition-colors"
+              className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-[24px] p-6 shadow-md dark:shadow-xl hover:border-slate-300 dark:hover:border-zinc-700 transition-colors"
             >
-              <div className="w-12 h-12 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center mb-5">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 flex items-center justify-center mb-5">
                 {feature.icon}
               </div>
-              <h3 className="text-base font-bold text-white mb-2">
+              <h3 className="text-base font-bold text-zinc-900 dark:text-white mb-2">
                 {feature.title}
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
                 {feature.description}
               </p>
             </div>

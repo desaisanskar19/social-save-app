@@ -58,54 +58,73 @@ const SAMPLE_VIDEOS = {
 };
 
 // URL Detection & Validation Logic
-function detectPlatformAndType(urlStr: string): { platform: 'instagram' | 'facebook' | null; contentType: 'reel' | 'post' | 'story' | 'video' | 'carousel'; valid: boolean; normalizedId: string } {
+function detectPlatformAndType(urlStr: string): { platform: 'instagram' | 'facebook' | null; contentType: 'reel' | 'post' | 'story' | 'video' | 'carousel'; valid: boolean; normalizedId: string; cleanUrl: string } {
+  let raw = urlStr.trim();
+  if (!raw) {
+    return { platform: null, contentType: 'post', valid: false, normalizedId: '', cleanUrl: '' };
+  }
+
+  // Prepend https:// if missing
+  if (!/^https?:\/\//i.test(raw)) {
+    raw = 'https://' + raw;
+  }
+
   let parsed: URL;
   try {
-    parsed = new URL(urlStr.trim());
+    parsed = new URL(raw);
   } catch {
-    return { platform: null, contentType: 'post', valid: false, normalizedId: '' };
+    // If URL parsing fails, check text content
+    if (raw.toLowerCase().includes('instagram.com') || raw.toLowerCase().includes('instagr.am')) {
+      return { platform: 'instagram', contentType: 'reel', valid: true, normalizedId: 'ig_media', cleanUrl: raw };
+    }
+    if (raw.toLowerCase().includes('facebook.com') || raw.toLowerCase().includes('fb.watch') || raw.toLowerCase().includes('fb.me')) {
+      return { platform: 'facebook', contentType: 'video', valid: true, normalizedId: 'fb_media', cleanUrl: raw };
+    }
+    return { platform: null, contentType: 'post', valid: false, normalizedId: '', cleanUrl: raw };
   }
 
   const hostname = parsed.hostname.toLowerCase();
-  const pathname = parsed.pathname;
+  const pathname = parsed.pathname.toLowerCase();
 
   // Instagram Detection
   if (hostname.includes('instagram.com') || hostname.includes('instagr.am')) {
-    if (pathname.includes('/reel/') || pathname.includes('/reels/')) {
-      const match = pathname.match(/\/reels?\/([a-zA-Z0-9_-]+)/);
-      return { platform: 'instagram', contentType: 'reel', valid: true, normalizedId: match ? match[1] : 'reel' };
+    if (pathname.includes('/reel/') || pathname.includes('/reels/') || pathname.includes('/share/reel/')) {
+      const match = parsed.pathname.match(/\/(?:share\/)?reels?\/([a-zA-Z0-9_-]+)/i);
+      return { platform: 'instagram', contentType: 'reel', valid: true, normalizedId: match ? match[1] : 'reel_' + Date.now().toString().slice(-4), cleanUrl: raw };
     }
     if (pathname.includes('/stories/') || pathname.includes('/s/')) {
-      const match = pathname.match(/\/stories\/([^\/]+)\/([0-9]+)/) || pathname.match(/\/s\/([a-zA-Z0-9_-]+)/);
-      return { platform: 'instagram', contentType: 'story', valid: true, normalizedId: match ? match[1] : 'story' };
+      const match = parsed.pathname.match(/\/stories\/([^\/]+)\/([0-9]+)/i) || parsed.pathname.match(/\/s\/([a-zA-Z0-9_-]+)/i);
+      return { platform: 'instagram', contentType: 'story', valid: true, normalizedId: match ? (match[2] || match[1]) : 'story_' + Date.now().toString().slice(-4), cleanUrl: raw };
     }
-    if (pathname.includes('/p/')) {
-      const match = pathname.match(/\/p\/([a-zA-Z0-9_-]+)/);
-      return { platform: 'instagram', contentType: 'post', valid: true, normalizedId: match ? match[1] : 'post' };
+    if (pathname.includes('/p/') || pathname.includes('/share/p/')) {
+      const match = parsed.pathname.match(/\/(?:share\/)?p\/([a-zA-Z0-9_-]+)/i);
+      return { platform: 'instagram', contentType: 'post', valid: true, normalizedId: match ? match[1] : 'post_' + Date.now().toString().slice(-4), cleanUrl: raw };
     }
     if (pathname.includes('/tv/')) {
-      const match = pathname.match(/\/tv\/([a-zA-Z0-9_-]+)/);
-      return { platform: 'instagram', contentType: 'video', valid: true, normalizedId: match ? match[1] : 'tv' };
+      const match = parsed.pathname.match(/\/tv\/([a-zA-Z0-9_-]+)/i);
+      return { platform: 'instagram', contentType: 'video', valid: true, normalizedId: match ? match[1] : 'tv_' + Date.now().toString().slice(-4), cleanUrl: raw };
     }
     // Generic Instagram url
-    return { platform: 'instagram', contentType: 'post', valid: true, normalizedId: 'instagram_media' };
+    return { platform: 'instagram', contentType: pathname.includes('reel') ? 'reel' : 'post', valid: true, normalizedId: 'ig_' + Date.now().toString().slice(-4), cleanUrl: raw };
   }
 
   // Facebook Detection
-  if (hostname.includes('facebook.com') || hostname.includes('fb.watch') || hostname.includes('fb.me')) {
-    if (hostname.includes('fb.watch') || pathname.includes('/watch') || pathname.includes('/videos/') || pathname.includes('/video/')) {
-      return { platform: 'facebook', contentType: 'video', valid: true, normalizedId: 'fb_video' };
+  if (hostname.includes('facebook.com') || hostname.includes('fb.watch') || hostname.includes('fb.me') || hostname.includes('fb.gg')) {
+    if (hostname.includes('fb.watch') || pathname.includes('/watch') || pathname.includes('/videos/') || pathname.includes('/video/') || pathname.includes('/share/v/')) {
+      const match = parsed.pathname.match(/\/(?:videos?|watch|share\/v)\/([0-9]+|[a-zA-Z0-9_-]+)/i);
+      return { platform: 'facebook', contentType: 'video', valid: true, normalizedId: match ? match[1] : 'fb_video', cleanUrl: raw };
     }
-    if (pathname.includes('/reel/') || pathname.includes('/reels/')) {
-      return { platform: 'facebook', contentType: 'reel', valid: true, normalizedId: 'fb_reel' };
+    if (pathname.includes('/reel/') || pathname.includes('/reels/') || pathname.includes('/share/r/')) {
+      const match = parsed.pathname.match(/\/(?:share\/r|reels?)\/([0-9]+|[a-zA-Z0-9_-]+)/i);
+      return { platform: 'facebook', contentType: 'reel', valid: true, normalizedId: match ? match[1] : 'fb_reel', cleanUrl: raw };
     }
-    if (pathname.includes('/posts/') || pathname.includes('permalink.php') || pathname.includes('/photos/') || pathname.includes('/photo/')) {
-      return { platform: 'facebook', contentType: 'post', valid: true, normalizedId: 'fb_post' };
+    if (pathname.includes('/posts/') || pathname.includes('permalink.php') || pathname.includes('/photos/') || pathname.includes('/photo/') || pathname.includes('/share/p/')) {
+      return { platform: 'facebook', contentType: 'post', valid: true, normalizedId: 'fb_post_' + Date.now().toString().slice(-4), cleanUrl: raw };
     }
-    return { platform: 'facebook', contentType: 'post', valid: true, normalizedId: 'fb_media' };
+    return { platform: 'facebook', contentType: 'video', valid: true, normalizedId: 'fb_' + Date.now().toString().slice(-4), cleanUrl: raw };
   }
 
-  return { platform: null, contentType: 'post', valid: false, normalizedId: '' };
+  return { platform: null, contentType: 'post', valid: false, normalizedId: '', cleanUrl: raw };
 }
 
 // Health check endpoint

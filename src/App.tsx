@@ -11,8 +11,9 @@ import { FAQSection } from './components/FAQSection';
 import { LegalPages } from './components/LegalPages';
 import { Footer } from './components/Footer';
 import { ToastProvider, useToast } from './components/Toast';
-import { MediaItem, MediaFormat, DownloadHistoryItem, ActivePage, ApiResponse } from './types';
+import { MediaItem, MediaFormat, DownloadHistoryItem, ActivePage } from './types';
 import { getDownloadHistory, saveDownloadToHistory, removeDownloadFromHistory, clearDownloadHistory, getSavedTheme, setSavedTheme } from './utils/storage';
+import { fetchSocialMedia } from './services/mediaExtractor';
 
 function AppContent() {
   const { showToast } = useToast();
@@ -65,47 +66,30 @@ function AppContent() {
     setMediaResult(null);
 
     try {
-      const res = await fetch('/api/download', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: targetUrl }),
+      const mediaData = await fetchSocialMedia(targetUrl);
+      setMediaResult(mediaData);
+      setError(null);
+      showToast({
+        type: 'success',
+        title: 'Media Ready!',
+        message: `Found ${mediaData.formats.length} download options for ${mediaData.platform.toUpperCase()} ${mediaData.contentType}.`,
       });
 
-      const json: ApiResponse<MediaItem> = await res.json();
-
-      if (!res.ok || !json.success || !json.data) {
-        const errorMsg = json.error || 'Sorry, we couldn’t process this URL. Make sure the post is publicly accessible and the URL is correct.';
-        setError(errorMsg);
-        showToast({
-          type: 'error',
-          title: 'Extraction Error',
-          message: errorMsg,
-        });
-      } else {
-        setMediaResult(json.data);
-        setError(null);
-        showToast({
-          type: 'success',
-          title: 'Media Ready!',
-          message: `Found ${json.data.formats.length} download options for ${json.data.platform.toUpperCase()} ${json.data.contentType}.`,
-        });
-
-        // Scroll smoothly to results card
-        setTimeout(() => {
-          const resultElement = document.getElementById(`result-card-${json.data?.id}`);
-          if (resultElement) {
-            resultElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }, 100);
-      }
+      // Scroll smoothly to results card
+      setTimeout(() => {
+        const resultElement = document.getElementById(`result-card-${mediaData.id}`);
+        if (resultElement) {
+          resultElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
     } catch (err: any) {
-      console.error('Fetch error:', err);
-      const networkErrorMsg = 'Network or server error while processing request. Please try again.';
-      setError(networkErrorMsg);
+      console.error('Process error:', err);
+      const errorMsg = err?.message || 'Sorry, we couldn’t process this URL. Make sure the post is publicly accessible.';
+      setError(errorMsg);
       showToast({
         type: 'error',
-        title: 'Connection Error',
-        message: networkErrorMsg,
+        title: 'Extraction Error',
+        message: errorMsg,
       });
     } finally {
       setIsLoading(false);
@@ -174,7 +158,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0A0A0A] text-white selection:bg-[#fd1d1d] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#0A0A0A] text-zinc-900 dark:text-white selection:bg-[#fd1d1d] selection:text-white transition-colors duration-200">
       {/* Top Navbar */}
       <Navbar
         activePage={activePage}
