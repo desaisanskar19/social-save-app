@@ -24,6 +24,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <p className="text-xs text-zinc-400 max-w-sm leading-relaxed">
               Fast, modern, and reliable social media downloader. Download publicly accessible Instagram Reels, Posts, Stories, and Facebook Videos in original HD quality.
             </p>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-300">
+              <span className="w-2 h-2 rounded-full bg-gradient-to-tr from-[#833ab4] to-[#fcb045]" />
+              <span>App Made by <strong className="text-white font-bold">Sanskar Desai</strong></span>
+            </div>
             <div className="flex items-center gap-2 text-[11px] text-emerald-400 font-medium">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>All extraction services online & active</span>
@@ -135,7 +139,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <p>
             Disclaimer: SocialSave is an independent utility and is not affiliated with, endorsed, or sponsored by Meta, Instagram, or Facebook. All trademarks belong to their respective owners.
           </p>
-          <div className="flex items-center gap-1 shrink-0">
+          <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+            <span className="text-zinc-300">
+              App Made by <strong className="text-white font-semibold">Sanskar Desai</strong>
+            </span>
+            <span className="hidden sm:inline text-zinc-700">•</span>
             <span>© {new Date().getFullYear()} SocialSave. All rights reserved.</span>
           </div>
         </div>
